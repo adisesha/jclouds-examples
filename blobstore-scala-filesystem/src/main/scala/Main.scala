@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 import org.jclouds.blobstore.BlobStoreContext
 import org.jclouds.ContextBuilder
 import org.jclouds.filesystem.reference.FilesystemConstants
@@ -25,33 +26,29 @@ import org.jclouds.filesystem.reference.FilesystemConstants
  * Demonstrates use of  BlobStore filesystem api
  * @author adisesha
  */
-object Main {
+object Main extends App {
+  require(args.length == 1, "Invalid number of parameters. Syntax is: \"basedirectory\" ")
 
-  def main(args: Array[String]) {
-    require(args.length == 1,"Invalid number of parameters. Syntax is: \"basedirectory\" ")
+  val baseDir = args(0)
 
-    val baseDir=args(0)
+  //Base directory property
+  val properties = new java.util.Properties()
+  properties.setProperty(FilesystemConstants.PROPERTY_BASEDIR, baseDir)
 
-    //Base directory property
-    val properties=new java.util.Properties()
-    properties.setProperty(FilesystemConstants.PROPERTY_BASEDIR,baseDir)
+  val context = ContextBuilder.newBuilder("filesystem")
+    .overrides(properties)
+    .buildView(classOf[BlobStoreContext])
 
-    val context = ContextBuilder.newBuilder("filesystem")
-      .overrides(properties)
-      .buildView(classOf[BlobStoreContext])
+  try {
+    val blobStore = context.getBlobStore
+    blobStore.createContainerInLocation(null, "test")
 
-    try {
-      val blobStore = context.getBlobStore
-      blobStore.createContainerInLocation(null, "test")
+    val blob = blobStore.blobBuilder("test").payload("testdata").build()
+    blobStore.putBlob("test", blob)
 
-      val blob = blobStore.blobBuilder("test").payload("testdata").build()
-      blobStore.putBlob("test", blob)
-
-      println("File \"test\" stored under,"+baseDir+System.getProperty("file.separator")+"test")
-    } finally {
-      context.close()
-    }
-
-
+    val filePath = baseDir + System.getProperty("file.separator") + "test"
+    println(s"File ${'"'}test${'"'} stored under,$filePath")
+  } finally {
+    context.close()
   }
 }

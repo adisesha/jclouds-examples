@@ -1,6 +1,6 @@
 name :="blobstore-scala-filesystem"
 
-scalaVersion :="2.9.2"
+scalaVersion :="2.10.1"
 
 version :="1.0-SNAPSHOT"
 

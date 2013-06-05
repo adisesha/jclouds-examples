@@ -1,5 +1,5 @@
 # blobstore-scala-filesystem
-This is a simple example command line client that creates a container, and 'test' file in a [BlobStore](http://code.google.com/p/jclouds/wiki/BlobStore)
+This is a simple example command line client that creates a container, and 'test' file in a [BlobStore](http://jclouds.incubator.apache.org/documentation/userguide/blobstore-guide/)
 using 'filesystem' api in scala
 ## Build
 Ensure that sbt is installed. Tested with 0.12.2
