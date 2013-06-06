@@ -20,6 +20,7 @@
 import org.jclouds.blobstore.BlobStoreContext
 import org.jclouds.ContextBuilder
 import org.jclouds.filesystem.reference.FilesystemConstants
+import resource._
 
 
 /**
@@ -35,11 +36,11 @@ object Main extends App {
   val properties = new java.util.Properties()
   properties.setProperty(FilesystemConstants.PROPERTY_BASEDIR, baseDir)
 
-  val context = ContextBuilder.newBuilder("filesystem")
+  //Using scala-arm for context management. See https://github.com/jsuereth/scala-arm
+  managed(ContextBuilder.newBuilder("filesystem")
     .overrides(properties)
-    .buildView(classOf[BlobStoreContext])
+    .buildView(classOf[BlobStoreContext])).acquireFor(context => {
 
-  try {
     val blobStore = context.getBlobStore
     blobStore.createContainerInLocation(null, "test")
 
@@ -48,7 +49,8 @@ object Main extends App {
 
     val filePath = baseDir + System.getProperty("file.separator") + "test"
     println(s"File ${'"'}test${'"'} stored under,$filePath")
-  } finally {
-    context.close()
-  }
+
+  })
+
+
 }
