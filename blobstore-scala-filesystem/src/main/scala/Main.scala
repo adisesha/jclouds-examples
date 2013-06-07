@@ -39,7 +39,8 @@ object Main extends App {
   //Using scala-arm for context management. See https://github.com/jsuereth/scala-arm
   managed(ContextBuilder.newBuilder("filesystem")
     .overrides(properties)
-    .buildView(classOf[BlobStoreContext])).acquireFor(context => {
+    .buildView(classOf[BlobStoreContext]))
+    .acquireAndGet(context => {
 
     val blobStore = context.getBlobStore
     blobStore.createContainerInLocation(null, "test")
@@ -48,7 +49,7 @@ object Main extends App {
     blobStore.putBlob("test", blob)
 
     val filePath = baseDir + System.getProperty("file.separator") + "test"
-    println(s"File ${'"'}test${'"'} stored under,$filePath")
+    println(s"File 'test' stored under, $filePath")
 
   })
 
