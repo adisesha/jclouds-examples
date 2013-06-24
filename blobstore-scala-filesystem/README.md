@@ -1,13 +1,10 @@
 # blobstore-scala-filesystem
-This is a simple example command line client that creates a container, and 'test' file in a [BlobStore](http://jclouds.incubator.apache.org/documentation/userguide/blobstore-guide/)
-using 'filesystem' api in scala. This example uses [scala-arm](https://github.com/jsuereth/scala-arm) for managing [BlobStoreContext](http://javadocs.jclouds.cloudbees.net/org/jclouds/blobstore/BlobStoreContext.html)
+This is a simple example command line client that creates a container and test blob in a filesystem [BlobStore](http://jclouds.incubator.apache.org/documentation/userguide/blobstore-guide/) using Scala. This example uses [scala-arm](https://github.com/jsuereth/scala-arm) to manage the [BlobStoreContext](http://javadocs.jclouds.cloudbees.net/org/jclouds/blobstore/BlobStoreContext.html)
 ## Build
 Ensure that sbt is installed. Tested with 0.12.2
 ## Run
-Go to root of project and run sbt. Invoke 'run basedir'. 'basedir' is the folder where the container, and file will be stored
+Run sbt from the root of your project and invoke <code>run _basedir_</code>, where <em>basedir</em> is a directory in which the container will be created. E.g. if your basedir is <code>/home/blobstore</code>, run
 
-Ex. If your basedir is '/home/blobstore'
-
-run '/home/blobstore'
+<code>run /home/blobstore</code>
 ## License
 Licensed under the Apache License, Version 2.0

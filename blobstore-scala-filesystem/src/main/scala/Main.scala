@@ -24,15 +24,17 @@ import resource._
 
 
 /**
- * Demonstrates use of  BlobStore filesystem api
+ * Demonstrates the use of the filesystem [[org.jclouds.blobstore.BlobStore]] in Scala
+ *
+ * Usage is: run \"basedir\"
+ *
  * @author adisesha
  */
 object Main extends App {
-  require(args.length == 1, "Invalid number of parameters. Syntax is: \"basedirectory\" ")
+  require(args.length == 1, "Invalid number of parameters. Usage is: \"baseDir\" ")
 
   val baseDir = args(0)
 
-  //Base directory property
   val properties = new java.util.Properties()
   properties.setProperty(FilesystemConstants.PROPERTY_BASEDIR, baseDir)
 
